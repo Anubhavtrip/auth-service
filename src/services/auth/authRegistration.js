@@ -9,7 +9,7 @@ const handleRegistrationUser = async (req)=>{
     //check user already exists or not
     const existingUser = await user.findOne({email});
     if(existingUser){
-        return res.status(400).json({msg:'User already exists'});
+        throw new Error('User already exists');
     }
     const salt = await bcrypt.genSalt(10); //Random string added to password before hashing
     const hashedPassword = await bcrypt.hash(password,salt);
