@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-const generateToken = (userId,userEmail,userRole,userDepartment,userDesignation) =>{
+const generateToken = (userId,userEmail,userRole,userDepartment,userDesignation,emp_code) =>{
     //sign is used to create token and taking three parameters one is payload and second is secret key and third is expiration time
     return jwt.sign({
                 id: userId,
                 email: userEmail,
                 role: userRole,
                 department: userDepartment,
-                designation: userDesignation
+                designation: userDesignation,
+                emp_code: emp_code,
                 },
                 process.env.JWT_SECRET,
         {
-                expiresIn:'1d'
+                expiresIn:'7d'
                 }
     )
 }

@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const users = require('../../models/users');
+const generateToken = require("../../utils/genrateToken");
 
 
 const handleLoginUser = async (req)=>{
@@ -13,17 +14,26 @@ const handleLoginUser = async (req)=>{
     if(!user){
        throw new Error('User not found');
     }
-    console.log(password,"password line 16");
-    console.log(user.password,"password line 17");
+
     //match password
     const isMatch = await bcrypt.compare(password,user.password);
-    console.log(isMatch,"isMatch");
+
     if(!isMatch){
         throw new Error('Invalid Credentials');
     }
+    //create token and store important data in the token
+    const token = generateToken(
+        user._id,
+        user.email,
+        user.role,
+        user.department,
+        user.designation
+
+    );
     return {
         msg:'User logged in successfully',
         user: {
+            token,
             name: user.name,
             email: user.email
         },

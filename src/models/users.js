@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
     {
+        employee_code:{
+            type:Number,
+            required:true,
+            unique:true,
+        },
         name:{
             type:String,
             required:true,
@@ -28,7 +33,7 @@ const userSchema = new mongoose.Schema(
         },
         department:{
             type:String,
-                                                                                            enum:['IT','HR','Finance','Sales','Marketing'],
+            enum:['IT','HR','Finance','Sales','Marketing'],
             default:'IT'
         },
         isActive:{

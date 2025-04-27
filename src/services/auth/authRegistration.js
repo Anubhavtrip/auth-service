@@ -9,10 +9,19 @@ const handleRegistrationUser = async (req)=>{
     //check user already exists or not
     const existingUser = await user.findOne({email});
     if(existingUser){
-        throw new Error('User already exists');
+        return {
+            msg:'User already exists please use different email'
+        }
     }
     const salt = await bcrypt.genSalt(10); //Random string added to password before hashing
     const hashedPassword = await bcrypt.hash(password,salt);
+    //generate autonumber
+    let autonumber = await user.countDocuments();
+    // console.log(autonumber,"autonumber");
+    autonumber = autonumber + 1;
+    autonumber = autonumber + 1000;
+
+
     //insert user in the database
     const newUser = new user({
         name,
@@ -21,7 +30,8 @@ const handleRegistrationUser = async (req)=>{
         role,
         department,
         isActive,
-        designation
+        designation,
+        employee_code:autonumber
     })
 
     //save user in the database
@@ -33,7 +43,8 @@ const handleRegistrationUser = async (req)=>{
         newUser.email,
         newUser.role,
         newUser.department,
-        newUser.designation
+        newUser.designation,
+        newUser.employee_code
     );
     return{
         msg: "User created successfully",

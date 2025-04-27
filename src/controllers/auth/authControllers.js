@@ -7,6 +7,7 @@ const registerUser = async (req,res)=>{
 
     try{
        const result = await  handleRegistrationUser(req)
+        console.log(result);
         res.status(201).json(result);
     }catch(err){
         console.log("this is error"+err.message+"something went wrong");
