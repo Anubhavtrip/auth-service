@@ -6,13 +6,13 @@ require('dotenv').config(); //extract env details
 
 const verifyToken = async (req,res,next)=>{
     //extract token
-    const token  =  req.header.authorization?.split(" ")[1];
+    const token  =  req.headers.authorization?.split(" ")[1];
     if(!token) return res.status(401).json({
         status:false,
         msg:"Token is not provided"
     });
     try{
-        const decode = token.verify(token,process.env.JWT_SECRET);
+        const decode = jwt.verify(token,process.env.JWT_SECRET);
         req.user = decode;
         next();
     }catch (e) {
@@ -29,6 +29,7 @@ const isHR  = (req,res,next)=>{
     if(req.user.role != "hr"){
         res.status(401).json({status:false,msg:"Hr access only"})
     }
+    next();
 }
 
 //validate that user is admin

@@ -2,7 +2,7 @@ const user =  require("../../models/users");
 
 const GetAllUsers = async ()=>{
     // fetch all user
-    const users = await user.find({isActive:false}).select("-password");
+    const users = await user.find({isActive:true}).select("-password");
     //return
     if(users){
         return{
@@ -41,15 +41,15 @@ const GetUserById = async (req,res)=>{
 const DeactivateUser = async(req,res)=>{
     const isBool = await user.findByIdAndUpdate(req.params.id,{isActive: req.params.deactivate});
     if (!isBool){
-        res.status(401).json({
+        return{
             status:false,
             msg:"User not found || Only admin have access for this api"
-        })
+        }
     }
-    res.status(200).json({
+    return{
         status:true,
         msg:"User successfully update || please check"
-    })
+    }
 }
 //export the module
 module.exports = {GetAllUsers,GetUserById,DeactivateUser}

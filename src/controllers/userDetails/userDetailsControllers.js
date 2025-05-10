@@ -3,6 +3,7 @@ const {GetAllUsers,GetUserById, DeactivateUser} =  require("../../services/userD
 const getAllUsers = async(req,res)=>{
     try{
         const users = await GetAllUsers();
+        console.log(users);
             res.status(200).json(users);
 
     }catch (e) {
@@ -30,7 +31,8 @@ const getUserById =  async(req,res)=>{
 //deactivate User only admin can do this
 const deactivateUser = async (req,res)=>{
     try{
-        const isBool = await DeactivateUser(req);
+        const updatedUsers = await DeactivateUser(req);
+        res.status(200).json(updatedUsers);
     }catch (e) {
         res.status(500).json({
             status:false,

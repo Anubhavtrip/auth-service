@@ -25,6 +25,7 @@ app.get('/',(req,res)=>{
 
 //initiialize routes
 app.use("/api/v1/auth",userAuth)
+console.log("this is app.js");
 app.use("/api/v1/user",userDetailsRouter)
 
 module.exports = app;
