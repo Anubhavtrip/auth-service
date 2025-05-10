@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const user = require('../../models/users');
 const generateToken = require('../../utils/genrateToken');
+const generateEmpCode = require("../../utils/genrateEmpCode");
 
 const handleRegistrationUser = async (req)=>{
 
@@ -16,11 +17,7 @@ const handleRegistrationUser = async (req)=>{
     const salt = await bcrypt.genSalt(10); //Random string added to password before hashing
     const hashedPassword = await bcrypt.hash(password,salt);
     //generate autonumber
-    let autonumber = await user.countDocuments();
-    // console.log(autonumber,"autonumber");
-    autonumber = autonumber + 1;
-    autonumber = autonumber + 1000;
-
+    let autonumber = await generateEmpCode();
 
     //insert user in the database
     const newUser = new user({
@@ -35,8 +32,7 @@ const handleRegistrationUser = async (req)=>{
     })
 
     //save user in the database
-    await newUser.save();
-
+    await newUser.save()
     //create token and store important data in the token
     const token = generateToken(
         newUser._id,
@@ -46,6 +42,7 @@ const handleRegistrationUser = async (req)=>{
         newUser.designation,
         newUser.employee_code
     );
+    console.log(token);
     return{
         msg: "User created successfully",
         newUser: { email: newUser.email },

@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
         },
         department:{
             type:String,
-            enum:['IT','HR','Finance','Sales','Marketing'],
+            enum:['IT','HR','Finance','SALES','Marketing','ADMIN'],
             default:'IT'
         },
         isActive:{

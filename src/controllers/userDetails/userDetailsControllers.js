@@ -17,7 +17,7 @@ const getAllUsers = async(req,res)=>{
 //get user by mongo id
 const getUserById =  async(req,res)=>{
     try{
-        const users = GetUserById(req,res);
+        const users = await GetUserById(req,res);
         res.status(200).json(users);
 
     }catch (err){

@@ -10,7 +10,7 @@ const handleLoginUser = async (req)=>{
 
     //check user exist or not
     const user = await users.findOne({email}).select('+password');
-    console.log(user,"user");
+
     if(!user){
        throw new Error('User not found');
     }
@@ -27,7 +27,8 @@ const handleLoginUser = async (req)=>{
         user.email,
         user.role,
         user.department,
-        user.designation
+        user.designation,
+        user.employee_code
 
     );
     return {

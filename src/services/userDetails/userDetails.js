@@ -40,7 +40,9 @@ const GetUserById = async (req,res)=>{
 
 const DeactivateUser = async(req,res)=>{
     const isBool = await user.findByIdAndUpdate(req.params.id,{isActive: req.params.deactivate});
+    console.log(isBool);
     if (!isBool){
+
         return{
             status:false,
             msg:"User not found || Only admin have access for this api"
