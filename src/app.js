@@ -5,7 +5,8 @@ require('dotenv').config();
 const app = express();
 
 //import routes
-const userRoutes = require('./routes/auth/user_auth')
+const userAuth = require('./routes/auth/user_auth')
+const userDetailsRouter = require("./routes/user/user_details");
 
 //middlewares
 // app.use(cors(
@@ -23,6 +24,7 @@ app.get('/',(req,res)=>{
 })
 
 //initiialize routes
-app.use("/api/v1/auth",userRoutes)
+app.use("/api/v1/auth",userAuth)
+app.use("/api/v1/user",userDetailsRouter)
 
 module.exports = app;
