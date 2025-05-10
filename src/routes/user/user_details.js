@@ -1,5 +1,5 @@
 const express  = require('express');
-const userDetailsRouter  = express.router();
+const userDetailsRouter  = express.Router();
 
 //import authentication for access control
 const {verifyToken,isHR,isAdmin}  =  require("../../middleware/authMiddleware");
